@@ -10,9 +10,9 @@ export const createBusiness = async (req, res) => {
     try {
 
         
-        const { email, password, business_name, business_phone, address, website, description, business_pic} = req.body;
+        const { email, password, business_name, business_phone, address, website, description, business_pic, business_category} = req.body;
 
-        if (!email || !password || !business_name || !business_phone || !address || !website || !description || !business_pic) {
+        if (!email || !password || !business_name || !business_phone || !address || !website || !description || !business_pic || !business_category) {
 
             return res.status(400).json({ message: "All fields are required" });
         }
@@ -43,8 +43,8 @@ export const createBusiness = async (req, res) => {
         //const business_id = await last_businessAdmin_id();
 
         await connection.execute(
-            'INSERT INTO business_details (business_id,business_phone,address,website,description,business_pic) VALUES (?,?,?,?,?,?)'
-            , [business_id, business_phone, address, website, description, business_pic]);
+            'INSERT INTO business_details (business_id,business_phone,address,website,description,business_pic,business_category ) VALUES (?,?,?,?,?,?,?)'
+            , [business_id, business_phone, address, website, description, business_pic,business_category]);
 
         await connection.commit();
 
