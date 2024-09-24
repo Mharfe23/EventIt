@@ -8,10 +8,12 @@ import notifRoutes from "./routes/notif.routes.js";
 import crudRoutes from "./routes/crud.routes.js";
 import userRoutes from "./routes/users.routes.js";
 import statsRoutes from "./routes/stats.routes.js";
+import cors from "cors";
 dotenv.config();
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
     
@@ -25,7 +27,7 @@ app.use('/api/users',userRoutes);
 
 app.use('/api/stats/',statsRoutes);
 
-app.listen(process.env.PORT,() => {
+app.listen(process.env.PORT,'0.0.0.0',() => {
     connectToMySql();
    
     console.log(`Server is running on port ${process.env.PORT}`);

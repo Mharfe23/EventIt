@@ -8,7 +8,7 @@ export const getBusinessesPerEvent = async (req, res) => {
         const event_id = await geteventid_fromToken(req);
        
         const [results] = await connection.execute(
-            "SELECT businesses.business_id ,business_name,business_phone,address, email,website,description,business_pic FROM businesses,business_details where (businesses.business_id = business_details.business_id) AND event_id = ?",[event_id]
+            "SELECT businesses.business_id ,business_name,business_phone,address, email,website,description,business_pic,business_category FROM businesses,business_details where (businesses.business_id = business_details.business_id) AND event_id = ?",[event_id]
         );
         res.status(200).json(results);
     } catch (error) {
@@ -25,10 +25,10 @@ export const getBusinessRepresentatives = async (req, res) => {
         const event_id = await geteventid_fromToken(req);
         
         const [results] = await connection.execute(
-            "SELECT user_id,fullname, info FROM business_representatives WHERE event_id = ?",
+            "SELECT user_id,fullname, info,br.email,business_name FROM business_representatives as br,businesses as bs WHERE br.event_id = ? AND  br.business_id = bs.business_id",
             [event_id]
         );
-        res.status(200).json(results[0]);
+        res.status(200).json(results);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }finally{

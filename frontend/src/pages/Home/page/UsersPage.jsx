@@ -7,15 +7,31 @@ import UsersTable from "../../../components/componentsNew/users2/UsersTable";
 import UserGrowthChart from "../../../components/componentsNew/users2/UserGrowthChart";
 import UserActivityHeatmap from "../../../components/componentsNew/users2/UserActivityHeatmap";
 import UserDemographicsChart from "../../../components/componentsNew/users2/UserDemographicsChart";
+import { useState } from "react";
+import { useEffect } from "react";
+import {GetReperesentNumber, GetReperesentToday,useGetReperesent} from "../../../hooks/useStats";
 
-const userStats = {
-	totalUsers: 152845,
-	newUsersToday: 243,
-	activeUsers: 98520,
-	churnRate: "2.4%",
-};
 
 const UsersPage = () => {
+	const [usernumber,setusernumber] = useState(0);
+	const [usernumberToday,setusernumberToday] = useState(0);
+	const [users,setusers] = useState([]);
+
+	const [loading, getuserNumber] = GetReperesentNumber();
+	const [loading2, getuserNumberToday] = GetReperesentToday();
+	const [loading3,getusers] = useGetReperesent();
+
+	useEffect(() => {
+
+		const setStat = async ()=>{
+			setusernumber(await getuserNumber());
+			setusernumberToday(await getuserNumberToday());
+			setusers(await getusers());
+		}
+		
+		setStat();
+	},[])
+
 	return (
 		<div className='flex-1 overflow-auto relative z-10'>
 			<Header title='Users' />
@@ -31,20 +47,14 @@ const UsersPage = () => {
 					<StatCard
 						name='Total Users'
 						icon={UsersIcon}
-						value={userStats.totalUsers.toLocaleString()}
+						value={usernumber}
 						color='#6366F1'
 					/>
-					<StatCard name='New Users Today' icon={UserPlus} value={userStats.newUsersToday} color='#10B981' />
-					<StatCard
-						name='Active Users'
-						icon={UserCheck}
-						value={userStats.activeUsers.toLocaleString()}
-						color='#F59E0B'
-					/>
-					<StatCard name='Churn Rate' icon={UserX} value={userStats.churnRate} color='#EF4444' />
+					<StatCard name='New Users Today' icon={UserPlus} value={usernumberToday} color='#10B981' />
+					
 				</motion.div>
 
-				<UsersTable />
+				<UsersTable userData={users}/>
 
 				{/* USER CHARTS */}
 				<div className='grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8'>

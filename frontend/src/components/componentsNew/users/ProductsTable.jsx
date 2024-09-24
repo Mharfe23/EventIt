@@ -1,77 +1,109 @@
 import { motion } from "framer-motion";
 import { Edit, Search, Trash2 } from "lucide-react";
+import { useEffect } from "react";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
-const PRODUCT_DATA = [
-	{
-		id: 1,
-		name: "Wireless Earbuds",
-		email: "wireless@example.com",
-		phone: "123-456-7890",
-		website: "www.wireless.com",
-		description: "High-quality wireless earbuds",
-		category: "Electronics",
-		
-	},
-	{
-		id: 2,
-		name: "Leather Wallet",
-		email: "wallet@example.com",
-		phone: "987-654-3210",
-		website: "www.wallet.com",
-		description: "Genuine leather wallet",
-		category: "Accessories",
-		
-	},
-	{
-		id: 3,
-		name: "Smart Watch",
-		email: "watch@example.com",
-		phone: "555-123-4567",
-		website: "www.watch.com",
-		description: "Advanced smart watch",
-		category: "Electronics",
-		
-	},
-	{
-		id: 4,
-		name: "Yoga Mat",
-		email: "yoga@example.com",
-		phone: "111-222-3333",
-		website: "www.yoga.com",
-		description: "Non-slip yoga mat",
-		category: "Fitness",
-		
-	},
-	{
-		id: 5,
-		name: "Coffee Maker",
-		email: "coffee@example.com",
-		phone: "444-555-6666",
-		website: "www.coffee.com",
-		description: "Automatic coffee maker",
-		category: "Home",
-		
-	},
-];
 
-const ProductsTable = () => {
+import Modal from "./Modal";
+
+const BusinessTable = ({Businesslist}) => {
 	const [searchTerm, setSearchTerm] = useState("");
-	const [filteredProducts, setFilteredProducts] = useState(PRODUCT_DATA);
+	const [filteredProducts, setFilteredProducts] = useState(Businesslist);
+	const [selectedProduct, setSelectedProduct] = useState(null);
+	const [showEditModal, setshowEditModal] = useState(false);
+	const [showDeleteModal,setshowDeleteModal] = useState(false);
+
+	useEffect(() =>{
+		setFilteredProducts(Businesslist);
+	},[Businesslist]);
+
 
 	const handleSearch = (e) => {
 		const term = e.target.value.toLowerCase();
 		setSearchTerm(term);
-		const filtered = PRODUCT_DATA.filter(
-			(product) => product.name.toLowerCase().includes(term) || product.category.toLowerCase().includes(term)
+		const filtered = Businesslist.filter(
+			(product) => product.business_name.toLowerCase().includes(term) || product.website.toLowerCase().includes(term)
 		);
 
 		setFilteredProducts(filtered);
 	};
 
+	const handleEditClick = (product) => {
+		setSelectedProduct(product);
+		setshowEditModal(true);
+	};
+
+	const handleDeleteClick = (product)=>{
+		setSelectedProduct(product);
+		setshowDeleteModal(true);
+	}
+
+	const handleInputChange = (e) => {
+		const { name, value } = e.target;
+		setSelectedProduct((prevProduct) => ({
+			...prevProduct,
+			[name]: value
+			
+		}));
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		try {
+			const response = await fetch('/api/org/crud/updateBusiness', {
+				method: 'PUT', // Specify the request method as PUT
+				headers: {
+				  'Content-Type': 'application/json', // Set the content type to JSON
+				},
+				body: JSON.stringify(selectedProduct)
+			  });
+			 
+			  if (!response.ok) {
+				throw new Error(data.message);
+			  }
+
+			  toast.success("Modifié avec succés");
+			
+			  setshowEditModal(false); // Close modal after submission
+		} catch (error) {
+			console.log(error);
+			toast.error(error.message)
+		}
+		// Update logic goes here (backend update or state update)
+	
+	};
+
+	const handleDelete = async (e) =>{
+		e.preventDefault();
+		
+		try {
+			const response = await fetch('/api/org/crud/deleteBusiness', {
+				method: 'DELETE', // Specify the request method as PUT
+				headers: {
+				  'Content-Type': 'application/json', // Set the content type to JSON
+				},
+				body: JSON.stringify({"business_id":selectedProduct.business_id})
+			  });
+			 
+			  if (!response.ok) {
+				throw new Error(response.message);
+			  }
+
+			  toast.success("Supprimé avec succés");
+			
+			  setshowDeleteModal(false); 
+		} catch (error) {
+			console.log(error);
+			toast.error(error.message)
+		}
+			
+	}
+
+
 	return (
 		<motion.div
-			className='bg-gray-800 bg-opacity-50 backdrop-blur-md shadow-lg rounded-xl p-6 border border-gray-700 mb-8'
+			className='bg-gray-800 bg-opacity-50 backdrop-blur-md shadow-lg rounded-xl p-6 border border-gray-700 mb-8 overflow-y-auto h-[80vh]'
 			initial={{ opacity: 0, y: 20 }}
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ delay: 0.2 }}
@@ -122,7 +154,7 @@ const ProductsTable = () => {
 					<tbody className='divide-y divide-gray-700'>
 						{filteredProducts.map((product) => (
 							<motion.tr
-								key={product.id}
+								key={product.business_id}
 								initial={{ opacity: 0 }}
 								animate={{ opacity: 1 }}
 								transition={{ duration: 0.3 }}
@@ -133,7 +165,7 @@ const ProductsTable = () => {
 										alt='Product img'
 										className='size-10 rounded-full'
 									/>
-									{product.name}
+									{product.business_name}
 								</td>
 
 								<td className='px-8 py-4 whitespace-nowrap text-sm text-gray-300'>
@@ -141,7 +173,7 @@ const ProductsTable = () => {
 								</td>
 
 								<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-300'>
-									{product.phone}
+									{product.business_phone}
 								</td>
 
 								<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-300'>
@@ -153,14 +185,14 @@ const ProductsTable = () => {
 								</td>
 
 								<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-300'>
-									{product.category}
+									{product.business_category}
 								</td>
 
 								<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-300'>
-									<button className='text-indigo-400 hover:text-indigo-300 mr-2'>
+									<button className='text-indigo-400 hover:text-indigo-300 mr-2' onClick={() => handleEditClick(product)}>
 										<Edit size={18} />
 									</button>
-									<button className='text-red-400 hover:text-red-300'>
+									<button className='text-red-400 hover:text-red-300' onClick={()=> handleDeleteClick(product)}>
 										<Trash2 size={18} />
 									</button>
 								</td>
@@ -169,7 +201,74 @@ const ProductsTable = () => {
 					</tbody>
 				</table>
 			</div>
+			{/* Modal for editing product */}
+			<Modal show={showEditModal} onClose={() => setshowEditModal(false)} onSubmit={handleSubmit} >
+				
+				<h3 className="text-xl font-semibold mb-4 text-gray-600">Edit Business</h3>
+				
+				<form  className="grid md:grid-cols-3  gap-6">
+					
+						<div className="mb-4">
+						<label className="block text-black">Name</label>
+						<input
+							type="text"
+							name="business_name"
+							value={selectedProduct?.business_name || ""}
+							onChange={handleInputChange}
+							className="border rounded-lg px-3 py-2 w-full text-black"
+						/>
+						</div>
+						<div className="mb-4">
+							<label className="block text-black">Email</label>
+							<input
+								type="email"
+								name="email"
+								value={selectedProduct?.email || ""}
+								onChange={handleInputChange}
+								className="border rounded-lg px-3 py-2 w-full text-black"
+							/>
+						</div>
+					<div>
+						<div className="mb-4">
+						<label className="block text-black">Phone</label>
+						<input
+							type="text"
+							name="business_phone"
+							value={selectedProduct?.business_phone || ""}
+							onChange={handleInputChange}
+							className="border rounded-lg px-3 py-2 w-full text-black"
+						/>
+					</div>
+					</div>
+					<div className="mb-4">
+						<label className="block text-black">Website</label>
+						<input
+							type="text"
+							name="website"
+							value={selectedProduct?.website || ""}
+							onChange={handleInputChange}
+							className="border rounded-lg px-3 py-2 w-full text-black"
+						/>
+					</div>
+					
+					
+					<div className="mb-4">
+						<label className="block text-black">Description</label>
+						<textarea
+							name="description"
+							value={selectedProduct?.description || ""}
+							onChange={handleInputChange}
+							className="border rounded-lg px-3 py-2 w-full text-black lg:h-28"
+						/>
+					</div>
+					
+					
+				</form>
+			</Modal>
+			<Modal show ={showDeleteModal} onClose={()=> setshowDeleteModal(false)} onSubmit={handleDelete}>
+				<p className="text-xl text-black">Est-t-vous sure de vouloire Supprimer <span className="text-red-500 font-semibold"> Definitivement </span> ce compte?</p>
+			</Modal>
 		</motion.div>
 	);
 };
-export default ProductsTable;
+export default BusinessTable;

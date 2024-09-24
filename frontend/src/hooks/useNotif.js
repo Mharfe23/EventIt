@@ -58,3 +58,39 @@ export const useGetNotifRep = () => {
             }
             return [loadingRep, getNotifRep];
     }
+
+    export const useSendNotif = () => {
+        const [loadingSend, setLoadingSend] = useState(false);
+
+        const sendNotif = async (title,content, target) => {
+            setLoadingSend(true);
+
+            try {
+                const res = await fetch('/api/notif/send', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ title,content, target }),
+                });
+
+                const data = await res.json();
+                if (!res.ok) {
+                    toast.error('Erreur lors de l\'envoi de la notification');
+
+                    console.log(data.error);
+                    return;
+                }
+                toast.success('Notification envoyée avec succès');
+
+            } catch (error) {
+                toast.error('Erreur lors de l\'envoi de la notification');
+                console.log(error);
+
+            } finally {
+                setLoadingSend(false);
+            }
+        }
+
+        return [loadingSend, sendNotif];
+    }

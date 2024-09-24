@@ -2,11 +2,11 @@ import { motion } from "framer-motion";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
 const categoryData = [
-	{ name: "Electronics", value: 4500 },
-	{ name: "Clothing", value: 3200 },
-	{ name: "Home & Garden", value: 2800 },
-	{ name: "Books", value: 2100 },
-	{ name: "Sports & Outdoors", value: 1900 },
+	{ name: "AI in Health", value: 4500 },
+	{ name: "Consulting", value: 3200 },
+	{ name: "Cyber defense", value: 2800 },
+	{ name: "Infrastructure", value: 2100 },
+	{ name: "Digitalisation", value: 1900 },
 ];
 
 const COLORS = ["#6366F1", "#8B5CF6", "#EC4899", "#10B981", "#F59E0B"];

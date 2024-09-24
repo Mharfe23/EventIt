@@ -3,14 +3,12 @@ import { Route, Routes,Outlet } from 'react-router-dom';
 
 import OverviewPage from './page/OverviewPage';
 import BusinessPage from './page/BusinessPage';
-import SalesPage from './page/SalesPage';
-import OrdersPage from './page/OrdersPage';
-import AnalyticsPage from './page/AnalyticsPage';
 import SettingsPage from './page/SettingsPage';
 import UsersPage from './page/UsersPage';
 
 
 import Sidebar from '../../components/componentsNew/Sidebar';
+import NotificationPage from './page/NotificationPage';
 const Home = () => {
   return (
     <div className=' h-screen flex bg-gray-900 text-gray-100 overflow-hidden'>
@@ -26,11 +24,10 @@ const Home = () => {
         <Routes>
          <Route path='/' element={<OverviewPage/>}/>
          <Route path='/business' element={<BusinessPage/>}/>
-         <Route path='/sales' element={<SalesPage/>}/>
-         <Route path='/orders' element={<OrdersPage/>}/>
-         <Route path='/analytics' element={<AnalyticsPage/>}/>
          <Route path='/settings' element={<SettingsPage/>}/>
          <Route path='/users' element={<UsersPage/>}/>
+         <Route path='/notifications' element={<NotificationPage/>}/>
+
         </Routes>
         <Outlet/>
       

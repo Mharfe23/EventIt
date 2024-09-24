@@ -61,32 +61,30 @@ export const createBusiness = async (req, res) => {
 export const updateBusiness = async (req, res) => {
     
     const connection = await connectToMySql();
-    const { id, email, password, business_name, business_phone, address, website, description, business_pic } = req.body;
+    const { business_id, email, business_name, business_phone, address, website, description, business_pic } = req.body;
 
-    if (!id || !email || !password || !business_name || !business_phone || !address || !website || !description || !business_pic) {
+    if (!business_id || !email ||  !business_name || !business_phone || !address || !website || !description || !business_pic) {
         return res.status(400).json({ message: "All fields are required" });
     }
 
     try {
-        const business_admin = await connection.execute('SELECT * FROM businesses WHERE (email = ? OR business_name = ?) AND business_id != ?', [email, business_name, id]);
+        const business_admin = await connection.execute('SELECT * FROM businesses WHERE (email = ? OR business_name = ?) AND business_id != ?', [email, business_name, business_id]);
 
         if (business_admin[0].length > 0) {
             return res.status(400).json({ message: "Business admin with this email or business name already exists" });
         }
 
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
-
+       
         await connection.beginTransaction();
 
         await connection.execute(
-            'UPDATE businesses SET business_name = ?, email = ?, password = ? WHERE business_id = ?',
-            [business_name, email, hashedPassword, id]
+            'UPDATE businesses SET business_name = ?, email = ? WHERE business_id = ?',
+            [business_name, email, business_id]
         );
 
         await connection.execute(
             'UPDATE business_details SET business_phone = ?, address = ?, website = ?, description = ?, business_pic = ? WHERE business_id = ?',
-            [business_phone, address, website, description, business_pic, id]
+            [business_phone, address, website, description, business_pic, business_id]
         );
 
         await connection.commit();
@@ -102,16 +100,16 @@ export const updateBusiness = async (req, res) => {
 
 export const deleteBusiness = async (req, res) => {
     const connection = await connectToMySql();
-    const { id } = req.body;
+    const { business_id } = req.body;
 
-    if (!id) {
+    if (!business_id) {
         return res.status(400).json({ message: "Business id is required" });
     }
 
     try {
         await connection.beginTransaction();
 
-        await connection.execute('DELETE FROM businesses WHERE business_id = ?', [id]);
+        await connection.execute('DELETE FROM businesses WHERE business_id = ?', [business_id]);
 
         await connection.commit();
 

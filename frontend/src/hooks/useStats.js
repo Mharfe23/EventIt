@@ -1,0 +1,229 @@
+import { useState } from "react";
+
+export const useGetBusinesses = () => {
+    const [loading, setLoading] = useState(false);
+
+    const getBusinesses = async () => {
+        setLoading(true);
+
+        try {
+            const res = await fetch('/api/users/getBusPerEvent');
+
+            const data = await res.json();
+            if (!res.ok) {
+                return [];
+            }
+            return data;
+
+        } catch (error) {
+            console.log(error);
+
+        } finally {
+            setLoading(false);
+        }
+    }
+    return [loading, getBusinesses];
+}
+
+
+
+export const useGetReperesent = () => {
+    const [loading, setLoading] = useState(false);
+
+    const getUsers = async () => {
+        setLoading(true);
+
+        try {
+            const res = await fetch('/api/users/getBusRepresent');
+
+            const data = await res.json();
+            if (!res.ok) {
+                return [];
+            }
+            return data;
+
+        } catch (error) {
+            console.log(error);
+
+        } finally {
+            setLoading(false);
+        }
+    }
+    return [loading, getUsers];
+}
+
+export const useGetReperesentByBusiness = () => {
+    const [loading, setLoading] = useState(false);
+
+    const getUsers = async (id) => {
+        setLoading(true);
+
+        try {
+            const res = await fetch(`/api/users/getBusRepresentByBusiness/${id}`);
+
+            const data = await res.json();
+            if (!res.ok) {
+                return [];
+            }
+            return data;
+
+        } catch (error) {
+            console.log(error);
+
+        } finally {
+            setLoading(false);
+        }
+    }
+    return [loading, getUsers];
+}
+
+//STATS
+export const getBusinessNumber = ()=>{
+    const [loading, setLoading] = useState(false);
+
+    const getBusinessNumber = async () => {
+        setLoading(true);
+
+        try {
+            const res = await fetch('/api/stats/BusinessNumbers');
+
+            const data = await res.json();
+            if (!res.ok) {
+                return [];
+            }
+            return data;
+
+        } catch (error) {
+            console.log(error);
+
+        } finally {
+            setLoading(false);
+        }
+    }
+    return [loading, getBusinessNumber];
+}
+
+export const GetReperesentNumber = () => {
+    const [loading, setLoading] = useState(false);
+
+    const getUsers = async () => {
+        setLoading(true);
+
+        try {
+            const res = await fetch('/api/stats/BusinessRepresentativesNumbers');
+
+            const data = await res.json();
+            if (!res.ok) {
+                console.log(data.error);
+            }
+            return data;
+
+        } catch (error) {
+            console.log(error);
+
+        } finally {
+            setLoading(false);
+        }
+    }
+    return [loading, getUsers];
+}
+
+export const GetReperesentToday = () => {
+    const [loading, setLoading] = useState(false);
+
+    const getUsers = async () => {
+        setLoading(true);
+
+        try {
+            const res = await fetch('/api/stats/RepresentativesToday');
+
+            const data = await res.json();
+            if (!res.ok) {
+                return [];
+            }
+            return data;
+
+        } catch (error) {
+            console.log(error);
+
+        } finally {
+            setLoading(false);
+        }
+    }
+    return [loading, getUsers];
+}
+
+export const GetBusinessToday = () => {
+    const [loading, setLoading] = useState(false);
+
+    const getUsers = async () => {
+        setLoading(true);
+
+        try {
+            const res = await fetch('/api/stats/BusinessToday');
+
+            const data = await res.json();
+            if (!res.ok) {
+                return [];
+            }
+            return data;
+
+        } catch (error) {
+            console.log(error);
+
+        } finally {
+            setLoading(false);
+        }
+    }
+    return [loading, getUsers];
+}
+
+export const GetDailySignups = () => {
+    const [loading, setLoading] = useState(false);
+
+    const getUsers = async () => {
+        setLoading(true);
+
+        try {
+            const res = await fetch('/api/stats/daily-signups');
+
+            const data = await res.json();
+            if (!res.ok) {
+                return [];
+            }
+            return data;
+
+        } catch (error) {
+            console.log(error);
+
+        } finally {
+            setLoading(false);
+        }
+    }
+    return [loading, getUsers];
+}
+
+export const GetReperesentNumberPerBusiness = () => {
+    const [loading, setLoading] = useState(false);
+
+    const getUsers = async () => {
+        setLoading(true);
+
+        try {
+            const res = await fetch('/api/stats/RepresentativesPerBusiness');
+
+            const data = await res.json();
+            if (!res.ok) {
+                return [];
+            }
+            return data;
+
+        } catch (error) {
+            console.log(error);
+
+        } finally {
+            setLoading(false);
+        }
+    }
+    return [loading, getUsers];
+}
