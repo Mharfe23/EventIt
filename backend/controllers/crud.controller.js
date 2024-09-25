@@ -168,27 +168,26 @@ export const createRepresentative = async (req, res) => {
 
 export const updateRepresentative = async (req, res) => {
     const connection = await connectToMySql();
-    const { id, email, password, fullname,info } = req.body;
+    const { user_id,email, fullname,info } = req.body;
 
-    if (!id || !email || !password || !fullname || !info) {
+    if (!user_id || !email|| !fullname || !info) {
         return res.status(400).json({ message: "All fields are required" });
     }
 
     try {
-        const representative = await connection.execute('SELECT * FROM business_representatives WHERE email = ? OR fullname = ? AND user_id != ?', [email, fullname, id]);
+        const representative = await connection.execute('SELECT * FROM business_representatives WHERE (fullname = ? OR email=?) AND user_id != ?', [ fullname,email, user_id]);
 
         if (representative[0].length > 0) {
-            return res.status(400).json({ message: "Representative with this email or fullname already exists" });
+            return res.status(400).json({ message: "Representative with this email OR fullname already exists" });
         }
 
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
+       
 
         await connection.beginTransaction();
 
         await connection.execute(
-            'UPDATE business_representatives SET fullname = ?, email = ?, password = ?, info = ? WHERE user_id = ?',
-            [fullname, email, hashedPassword,info, id]
+            'UPDATE business_representatives SET fullname = ?, info = ? WHERE user_id = ?',
+            [fullname,info, user_id]
         );
 
         await connection.commit();

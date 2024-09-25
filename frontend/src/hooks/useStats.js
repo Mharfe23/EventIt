@@ -191,7 +191,52 @@ export const GetDailySignups = () => {
             if (!res.ok) {
                 return [];
             }
-            return data;
+            const formattedData = data.map(item => {
+                const dateObj = new Date(item.date);
+                const dayOfWeek = dateObj.toLocaleDateString('en-US', { weekday: 'short' }); // 'Mon', 'Tue', etc.
+                
+                return {
+                    date: dayOfWeek,
+                    count: item.count
+                };
+            });
+           
+            return formattedData;
+
+        } catch (error) {
+            console.log(error);
+
+        } finally {
+            setLoading(false);
+        }
+    }
+    return [loading, getUsers];
+}
+
+export const GetDailyBusSignups = () => {
+    const [loading, setLoading] = useState(false);
+
+    const getUsers = async () => {
+        setLoading(true);
+
+        try {
+            const res = await fetch('/api/stats/daily-bus-signups');
+
+            const data = await res.json();
+            if (!res.ok) {
+                return [];
+            }
+            const formattedData = data.map(item => {
+                const dateObj = new Date(item.date);
+                const dayOfWeek = dateObj.toLocaleDateString('en-US', { weekday: 'short' }); // 'Mon', 'Tue', etc.
+                
+                return {
+                    date: dayOfWeek,
+                    count: item.count
+                };
+            });
+           
+            return formattedData;
 
         } catch (error) {
             console.log(error);
@@ -211,6 +256,56 @@ export const GetReperesentNumberPerBusiness = () => {
 
         try {
             const res = await fetch('/api/stats/RepresentativesPerBusiness');
+
+            const data = await res.json();
+            if (!res.ok) {
+                return [];
+            }
+            return data;
+
+        } catch (error) {
+            console.log(error);
+
+        } finally {
+            setLoading(false);
+        }
+    }
+    return [loading, getUsers];
+}
+
+export const getnotifnum = () => {
+    const [loading, setLoading] = useState(false);
+
+    const getUsers = async () => {
+        setLoading(true);
+
+        try {
+            const res = await fetch('/api/stats/notifnum');
+
+            const data = await res.json();
+            if (!res.ok) {
+                return [];
+            }
+            return data;
+
+        } catch (error) {
+            console.log(error);
+
+        } finally {
+            setLoading(false);
+        }
+    }
+    return [loading, getUsers];
+}
+
+export const getnotifnumtoday =() => {
+    const [loading, setLoading] = useState(false);
+
+    const getUsers = async () => {
+        setLoading(true);
+
+        try {
+            const res = await fetch('/api/stats/notifnumtoday');
 
             const data = await res.json();
             if (!res.ok) {

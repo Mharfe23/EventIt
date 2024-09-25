@@ -21,7 +21,7 @@ const UsersTable = ({userData}) => {
 		const term = e.target.value.toLowerCase();
 		setSearchTerm(term);
 		const filtered = userData.filter(
-			(user) => user.name.toLowerCase().includes(term) || user.email.toLowerCase().includes(term)
+			(user) => user.fullname.toLowerCase().includes(term) || user.email.toLowerCase().includes(term)
 		);
 		setFilteredUsers(filtered);
 	};
@@ -47,9 +47,9 @@ const UsersTable = ({userData}) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		/*
+		
 		try {
-			const response = await fetch('/api/org/crud/updateBusiness', {
+			const response = await fetch('/api/org/crud/updateRepresentative', {
 				method: 'PUT', // Specify the request method as PUT
 				headers: {
 				  'Content-Type': 'application/json', // Set the content type to JSON
@@ -58,7 +58,7 @@ const UsersTable = ({userData}) => {
 			  });
 			 
 			  if (!response.ok) {
-				throw new Error(data.message);
+				throw new Error(response.error);
 			  }
 
 			  toast.success("Modifié avec succés");
@@ -66,11 +66,34 @@ const UsersTable = ({userData}) => {
 			  setshowEditModal(false); // Close modal after submission
 		} catch (error) {
 			console.log(error);
-			toast.error(error.message)*/
+			toast.error(error.message)
 		}
+}
 
-		const handleDelete =(e) =>{
+		const handleDelete = async (e) =>{
 			e.preventDefault();
+			
+			try {
+				const response = await fetch('/api/org/crud/deleteRepresentative', {
+					method: 'DELETE', // Specify the request method as PUT
+					headers: {
+					  'Content-Type': 'application/json', // Set the content type to JSON
+					},
+					body: JSON.stringify({"id":selectedUser.user_id})
+				  });
+				 
+				  if (!response.ok) {
+					throw new Error(response.message);
+				  }
+	
+				  toast.success("Supprimé avec succés");
+				
+				  setshowDeleteModal(false); 
+			} catch (error) {
+				console.log(error);
+				toast.error(error.message)
+			}
+				
 		}
 
 	return (
@@ -102,7 +125,7 @@ const UsersTable = ({userData}) => {
 								Name
 							</th>
 							<th className='px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider'>
-								Business Name
+								Business 
 							</th>
 							<th className='px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider'>
 								Email
@@ -172,37 +195,28 @@ const UsersTable = ({userData}) => {
 				
 				<h3 className="text-xl font-semibold mb-4 text-gray-600">Edit Business</h3>
 				
-				<form  className="grid md:grid-cols-3  gap-6">
+				<form  className="grid md:grid-cols-2  gap-6">
 					
 						<div className="mb-4">
 						<label className="block text-black">Name</label>
 						<input
 							type="text"
-							name="business_name"
+							name="fullname"
 							value={selectedUser?.fullname || ""}
 							onChange={handleInputChange}
 							className="border rounded-lg px-3 py-2 w-full text-black"
 						/>
 						</div>
-						<div className="mb-4">
-							<label className="block text-black">Email</label>
-							<input
-								type="email"
-								name="email"
-								value={selectedUser?.email || ""}
-								onChange={handleInputChange}
-								className="border rounded-lg px-3 py-2 w-full text-black"
-							/>
-						</div>
+						
 					<div>
 						<div className="mb-4">
 						<label className="block text-black">Info</label>
-						<input
-							type="text"
+						<textarea
+							
 							name="info"
 							value={selectedUser?.info|| ""}
 							onChange={handleInputChange}
-							className="border rounded-lg px-3 py-2 w-full text-black"
+							className="border rounded-lg px-3 py-2 w-full text-black lg:h-28"
 						/>
 						</div>
 					</div>

@@ -6,6 +6,8 @@ import StatCard from "../../../components/componentsNew/StatCard";
 import BusinessTable from "../../../components/componentsNew/users/ProductsTable";
 import SalesTrendChart from "../../../components/componentsNew/users/SalesTrendChart";
 import CategoryDistributionChart from "../../../components/componentsNew/overview/CategoryDistributionChart";
+import RepresperbusChart  from "../../../components/componentsNew/business/RepresperbusChart";
+
 import { useEffect ,useState} from "react";
 import { getBusinessNumber,GetReperesentNumberPerBusiness,useGetBusinesses  } from "../../../hooks/useStats";
 
@@ -47,7 +49,7 @@ const BusinessPage = () => {
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 1 }}
 				>
-					<StatCard name='Total Business' icon={Package} value={businessesNumb} color='#6366F1' />
+					<StatCard name='Total des entreprises' icon={Package} value={businessesNumb} color='#6366F1' />
 					<StatCard name='Top representant' icon={TrendingUp} value={representNumb} color='#10B981' />
 				</motion.div>
 
@@ -57,7 +59,9 @@ const BusinessPage = () => {
 				<div className='grid grid-col-1 lg:grid-cols-2 gap-8'>
 					<SalesTrendChart />
 					<CategoryDistributionChart />
+					<RepresperbusChart />
 				</div>
+				
 			</main>
 		</div>
 	);

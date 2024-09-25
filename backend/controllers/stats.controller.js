@@ -108,3 +108,66 @@ export const getDailySignups = async (req, res) => {
         await connection.end();
     }
 };
+
+export const getDailyBusSignups = async (req, res) => {
+    const connection = await connectToMySql();
+    try {
+        const event_id = await geteventid_fromToken(req);
+        const [results] = await connection.execute(
+            `SELECT DATE(created_at) as date, COUNT(*) as count 
+             FROM businesses
+             WHERE event_id = ? 
+             GROUP BY DATE(created_at) 
+             ORDER BY DATE(created_at)`,
+            [event_id]
+        );
+        res.status(200).json(results);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    } finally {
+        await connection.end();
+    }
+};
+
+export const getNotifNumber = async (req, res) => {
+    
+    const connection = await connectToMySql();
+    try {
+        
+        const event_id = await geteventid_fromToken(req);
+
+        const [results] = await connection.execute(
+            "SELECT COUNT(*) as total_notif FROM notifications WHERE event_id = ?",
+            [event_id]
+        );
+
+        res.status(200).json(results[0]); // Send back the total notification count
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    } finally {
+        await connection.end();
+    }
+};
+
+export const getNotifNumberToday = async (req, res) => {
+    let connection;
+    try {
+        connection = await connectToMySql();
+
+        const event_id = await geteventid_fromToken(req);
+
+        const [results] = await connection.execute(
+            `SELECT COUNT(*) as today_notif 
+             FROM notifications 
+             WHERE event_id = ? 
+             AND DATE(created_at) = CURDATE()`,
+            [event_id]
+        );
+
+        res.status(200).json(results[0]); // Send back today's notification count
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    } finally {
+        await connection.end();
+    }
+};

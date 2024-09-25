@@ -35,7 +35,7 @@ export const getNotifsAdmin = async (req, res) => {
         let event_id = await geteventid_fromToken(req);
 
         const [results] = await connection.execute(
-            "SELECT * FROM notifications WHERE event_id = ? AND target = ?",
+            "SELECT notification_id as id,title,content,target,created_at as date FROM notifications WHERE event_id = ? AND target = ?",
             [event_id,'admin']
         );
         res.status(200).json( results);
@@ -54,8 +54,27 @@ export const getNotifsRep = async (req, res) => {
         let event_id = await geteventid_fromToken(req);
 
         const [results] = await connection.execute(
-            "SELECT * FROM notifications WHERE event_id = ? AND target = ?",
+            "SELECT SELECT notification_id as id,title,content,target,created_at as date FROM notifications WHERE event_id = ? AND target = ?",
             [event_id,'representative']
+        );
+        res.status(200).json( results);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }finally{
+        await connection.end();
+    }
+}
+
+export const getNotif = async (req, res) => {
+    let connection;
+    try {
+        connection = await connectToMySql();
+        
+        let event_id = await geteventid_fromToken(req);
+
+        const [results] = await connection.execute(
+            "SELECT notification_id as id,title,content,target,created_at as date FROM notifications WHERE event_id = ? ORDER BY date desc",
+            [event_id]
         );
         res.status(200).json( results);
     } catch (error) {

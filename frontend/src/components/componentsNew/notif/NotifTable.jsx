@@ -1,52 +1,31 @@
 import { motion } from "framer-motion";
 import { Edit, Search, Trash2 } from "lucide-react";
 import { useState } from "react";
+import { useEffect } from "react";
 
-const PRODUCT_DATA = [
-	{
-		id: 1,
-		title: "System Update",
-		content: "A new system update is available. Please update your software.",
-		target: "All Users",
-		date: "2023-10-01"
-	},
-	{
-		id: 2,
-		title: "Maintenance Downtime",
-		content: "Scheduled maintenance will occur on 2023-10-05 from 2 AM to 4 AM.",
-		target: "All Users",
-		date: "2023-10-03"
-	},
-	{
-		id: 3,
-		title: "New Feature Release",
-		content: "We are excited to announce a new feature that will enhance your experience.",
-		target: "Premium Users",
-		date: "2023-10-07"
-	},
-	{
-		id: 4,
-		title: "Security Alert",
-		content: "Please reset your password to ensure the security of your account.",
-		target: "All Users",
-		date: "2023-10-10"
-	}
-	
-];
 
-const NotifTable = () => {
+const NotifTable = ({notiflist}) => {
 	const [searchTerm, setSearchTerm] = useState("");
-	const [filteredProducts, setFilteredProducts] = useState(PRODUCT_DATA);
+	const [filterednotif, setFilterednotif] = useState(notiflist);
+	
+	useEffect(() =>{
+		setFilterednotif(notiflist);
+	},[notiflist]);
+
 
 	const handleSearch = (e) => {
 		const term = e.target.value.toLowerCase();
 		setSearchTerm(term);
-		const filtered = PRODUCT_DATA.filter(
-			(product) => product.name.toLowerCase().includes(term) || product.category.toLowerCase().includes(term)
+		const filtered = notiflist.filter(
+			(product) => product.title.toLowerCase().includes(term) || product.content.toLowerCase().includes(term)
 		);
 
 		setFilteredProducts(filtered);
 	};
+
+	
+	
+	
 
 	return (
 		<motion.div
@@ -87,14 +66,13 @@ const NotifTable = () => {
 							</th>
 							
 							
-							<th className='px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider'>
-								Actions
-							</th>
+							
 						</tr>
 					</thead>
 
 					<tbody className='divide-y divide-gray-700'>
-						{PRODUCT_DATA.map((product) => (
+						{notiflist.map((product) => (
+							
 							<motion.tr
 								key={product.id}
 								initial={{ opacity: 0 }}
@@ -118,17 +96,7 @@ const NotifTable = () => {
 									{product.target}
 								</td>
 								<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-300'>
-									{product.date}
-								</td>
-
-
-								
-
-								<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-300 text-center'>
-									
-									<button className='text-red-400 hover:text-red-300 '>
-										<Trash2 size={18} />
-									</button>
+									{product.date.slice(0,10)}
 								</td>
 							</motion.tr>
 						))}

@@ -29,7 +29,35 @@ export const useGetNotifAdmin = () => {
         }
         return [loadingAdmin, getNotifAdmin];
 }
+export const useGetNotif = () => {
+    const [loadingRep,setLoadingRep] = useState(false);
+        
+            const getNotif = async () => {
+        
+                setLoadingRep(true);
+        
+                try {
+                    const res = await fetch('/api/notif/get/');
+                    
+                    const data = await res.json();
+                    if(!res.ok){
+                        toast.error(data.message);
+                        return;
+                    }
+                    return data;
+        
+                } catch (error) {
+                    toast.error('Erreur lors de la récupération des notifications');
+                    console.log(error);
+                    
+                }finally{
+                    setLoadingRep(false);
+                }
+            }
+            return [loadingRep, getNotif];
+    }
 
+        
 export const useGetNotifRep = () => {
         
             const [loadingRep,setLoadingRep] = useState(false);

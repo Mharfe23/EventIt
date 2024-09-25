@@ -1,17 +1,37 @@
 import { motion } from "framer-motion";
-import { AlertTriangle, DollarSign, Package, TrendingUp } from "lucide-react";
+import {  Package, TrendingUp } from "lucide-react";
 
 import Header from "../../../components/componentsNew/Header";
 import StatCard from "../../../components/componentsNew/StatCard";
-import ProductsTable from "../../../components/componentsNew/users/ProductsTable";
-import SalesTrendChart from "../../../components/componentsNew/users/SalesTrendChart";
-import CategoryDistributionChart from "../../../components/componentsNew/overview/CategoryDistributionChart";
 import NotificationForm from "../../../components/componentsNew/notif/NotificationForm";
 import NotifTable from "../../../components/componentsNew/notif/NotifTable";
-
+import { useEffect ,useState} from "react";
+import { useGetNotif } from "../../../hooks/useNotif";
+import {getnotifnum,getnotifnumtoday} from "../../../hooks/useStats"
 
 
 const NotificationPage = () => {
+	const [notiflist, setNotiflist] = useState([]);
+	const [notifnum,setnotifnum] = useState(0);
+	const [notiftoday,setnotiftoday] = useState(0);
+
+
+	const [loading, getNotif] = useGetNotif();
+	const [loading2,getnotifnumero] = getnotifnum();
+	const [loading3,getnotifnumtod] = getnotifnumtoday();
+
+
+	useEffect(() => {
+		const setstat = async () => {
+			setNotiflist(await getNotif());
+			setnotifnum(await getnotifnumero());
+			setnotiftoday(await getnotifnumtod());
+		}
+		setstat();
+
+	}, []);
+
+
 	return (
 		<div className='flex-1 overflow-auto relative z-10'>
 			<Header title='Notification' />
@@ -24,18 +44,15 @@ const NotificationPage = () => {
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 1 }}
 				>
-					<StatCard name='Total Notification' icon={Package} value={1234} color='#6366F1' />
-					<StatCard name='New Notification' icon={TrendingUp} value={89} color='#10B981' />
+					<StatCard name='Total Notification' icon={Package} value={notifnum.total_notif} color='#6366F1' />
+					<StatCard name='New Notification' icon={TrendingUp} value={notiftoday.today_notif} color='#10B981' />
 				</motion.div>
                 
                 <NotificationForm/>
 
-				<NotifTable />
+				<NotifTable notiflist={notiflist} />
 
-				{/* CHARTS */}
-				<div className='grid grid-col-1 lg:grid-cols-1 gap-8'>
-					<SalesTrendChart />
-				</div>
+				
 			</main>
 		</div>
 	);
