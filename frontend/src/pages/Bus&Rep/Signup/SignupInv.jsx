@@ -1,45 +1,57 @@
-import React from 'react'
-import SignUp1 from './SignupBus1'
-import SignUp2 from './SignupBus2';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import SignupRep from './SignupRep';
+import SignupBus from './SignupBus';
+import TopNavbar from '../../../components/welcome/TopNavbar';
+
 
 const SignupInv = () => {
-    const [step, setStep] = useState(1);
-    const [formData, setFormData] = useState({
-        email: "",
-        password: "",
-        confirmPassword: "",
-        business_name: "",
-        business_phone: "",
-        address: "",
-        website: "",
-        description: "",
-        business_pic: "",
-        event_name: "",
-        category:""
-    })
+    const [selected, setSelected] = useState(null);
 
-    const handleNextStep = (newData) => {
-        setFormData({...formData, ...newData})
-        setStep(step + 1);
-    }
+    const handleSelect = (type) => {
+        setSelected(type);
+    };
 
-    const handlePrevStep = () => {
-        setStep(step - 1);
-    }
+    const renderContent = () => {
+        if (selected === 'business') {
+            return <SignupBus />;
+        } else if (selected === 'represent') {
+            return <SignupRep />;
+        }
+        return null;
+    };
 
-    //const [loading, signup] = useSignup();
-    
-    const handleSubmit = async (newData) => {
-        setFormData({...formData, ...newData});
-        //await signup(formData);
-       
-    }
-  return (<>
-     {step === 1 && <SignUp1 formData={formData} handleNextStep={handleNextStep} />}
-     {step === 2 && <SignUp2 formData={formData} handlePrevStep={handlePrevStep} handleSubmit={handleSubmit} />}
-    </>
-  )
-}
+    return (
+        <div>
+            {!selected ? (
+                <div>
+                    <TopNavbar hiddenBelowMd={false} />
+                    <div className='flex items-center gap-6 justify-around max-w-md min-w-md mx-auto rounded-lg shadow-md  my-4'>
+                        <div
+                            className='w-full p-6 rounded-lg shadow-md bg-clip-padding backdrop-blur-lg  text-center cursor-pointer bg-white'
+                        
+                            onClick={() => handleSelect('business')}
+                        >
+                            <h1 className='text-3xl font-bold p-6 text-center'>Entreprise</h1>
+                        </div>
+                    <div
+                        className='w-full p-6 rounded-lg shadow-md bg-clip-padding backdrop-blur-lg  text-center cursor-pointer bg-white'
+                        onClick={() => handleSelect('represent')}
+                    >
+                    <h1 className='text-3xl font-bold p-6 text-center'>Representant</h1>
 
-export default SignupInv
+                    </div>
+
+                    </div>
+                    
+                </div>
+            ) : (
+                <div>
+                    {renderContent()}
+                    
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default SignupInv;

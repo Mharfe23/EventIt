@@ -2,11 +2,11 @@
 import Welcome from './pages/Welcome/Welcome'
 import Login from './pages/Login/login'
 import Signup from './pages/Signup/Signup'
-import SignupInv from './pages/Bus&Rep/Signup/SignupInv'
 import { useAuthContext } from './Context/AuthContext'
 import Home from './pages/Home/Home'
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import {Toaster} from 'react-hot-toast';
+import SignupInv from './pages/Bus&Rep/Signup/SignupInv'
 
 function App() {
 
