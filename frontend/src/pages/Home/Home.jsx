@@ -19,7 +19,7 @@ const Home = () => {
           <div className='absolute inset-0 backdrop-blur-sm'/>
 
         </div>
-        <Sidebar/>
+        <Sidebar path={'/home'}/>
 
         <Routes>
          <Route path='/' element={<OverviewPage/>}/>

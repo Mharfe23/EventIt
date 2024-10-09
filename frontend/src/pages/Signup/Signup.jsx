@@ -30,7 +30,7 @@ const Signup = () => {
 
 
   return (
-    <div>
+    <div className='h-screen'>
         {step === 1 && <SignUp1 formData={formData} handleNextStep={handleNextStep} />}
         {step === 2 && <SignUp2 formData={formData} handlePrevStep={handlePrevStep} handleSubmit={handleSubmit} />}
         

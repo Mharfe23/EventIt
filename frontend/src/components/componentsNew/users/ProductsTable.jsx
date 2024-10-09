@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 
 import Modal from "./Modal";
 
-const BusinessTable = ({Businesslist}) => {
+const BusinessTable = ({Businesslist,admin}) => {
 	const [searchTerm, setSearchTerm] = useState("");
 	const [filteredProducts, setFilteredProducts] = useState(Businesslist);
 	const [selectedProduct, setSelectedProduct] = useState(null);
@@ -145,9 +145,9 @@ const BusinessTable = ({Businesslist}) => {
 								Category
 							</th>
 							
-							<th className='px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider'>
+							{admin?<th className='px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider'>
 								Actions
-							</th>
+							</th>:null}
 						</tr>
 					</thead>
 
@@ -188,14 +188,14 @@ const BusinessTable = ({Businesslist}) => {
 									{product.business_category}
 								</td>
 
-								<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-300'>
+								{admin?<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-300'>
 									<button className='text-indigo-400 hover:text-indigo-300 mr-2' onClick={() => handleEditClick(product)}>
 										<Edit size={18} />
 									</button>
 									<button className='text-red-400 hover:text-red-300' onClick={()=> handleDeleteClick(product)}>
 										<Trash2 size={18} />
 									</button>
-								</td>
+								</td>:null}
 							</motion.tr>
 						))}
 					</tbody>

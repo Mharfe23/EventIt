@@ -7,8 +7,8 @@ import { getBusinessNumbers,getBusinessRepresentativesNumbers
  import { getDailySignups } from '../controllers/stats.controller.js';
 const router = express.Router();
 
-router.get('/BusinessNumbers',protectRoute('event_org'), getBusinessNumbers);
-router.get('/BusinessRepresentativesNumbers',protectRoute('event_org'), getBusinessRepresentativesNumbers);
+router.get('/BusinessNumbers',protectRoute(), getBusinessNumbers);
+router.get('/BusinessRepresentativesNumbers',protectRoute(), getBusinessRepresentativesNumbers);
 router.get('/RepresentativesPerBusiness',protectRoute('event_org'), getRepresentativesPerBusiness);
 router.get('/RepresentativesToday',protectRoute('event_org'), getPresentativesToday);
 router.get('/BusinessToday',protectRoute('event_org'), BusinessToday);

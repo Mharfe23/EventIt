@@ -50,7 +50,7 @@ const SignUp1 = ({formData, handleNextStep}) => {
 
 
 
-  return (<>
+  return (<div>
   
 
     <TopNavbar hiddenBelowMd={false} />
@@ -105,7 +105,7 @@ const SignUp1 = ({formData, handleNextStep}) => {
       </form>
       </div>
     </div>
-    </>
+    </div>
   )
 };
 

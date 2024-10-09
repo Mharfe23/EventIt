@@ -53,7 +53,7 @@ const BusinessPage = () => {
 					<StatCard name='Top representant' icon={TrendingUp} value={representNumb} color='#10B981' />
 				</motion.div>
 
-				<BusinessTable Businesslist={businessList}/>
+				<BusinessTable Businesslist={businessList} admin={true}/>
 
 				{/* CHARTS */}
 				<div className='grid grid-col-1 lg:grid-cols-2 gap-8'>

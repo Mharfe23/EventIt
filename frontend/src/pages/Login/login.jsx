@@ -38,7 +38,7 @@ const Login = () => {
 }
 
 
-  return (<>
+  return (<div className="h-screen">
    
     <TopNavbar hiddenBelowMd={false} />
     
@@ -80,7 +80,7 @@ const Login = () => {
       </div>
     </div>
     
-    </>
+    </div>
   )
 };
 

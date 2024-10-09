@@ -281,7 +281,7 @@ export const loginBusinessRep = async (req, res) => {
             return res.status(400).json({ message: "Invalid Credentials" });
         }
 
-        generateTokenAndSetCookie(businessRep.userid, "bus_rep", res);
+        generateTokenAndSetCookie(businessRep.user_id, "bus_rep", res);
         res.status(200).json({ ...businessRep, password: undefined });
 
     } catch (error) {

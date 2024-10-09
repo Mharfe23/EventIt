@@ -59,7 +59,7 @@ export const useGetReperesentByBusiness = () => {
         setLoading(true);
 
         try {
-            const res = await fetch(`/api/users/getBusRepresentByBusiness/${id}`);
+            const res = await fetch(`/api/users/getBusRepresentByBusiness`);
 
             const data = await res.json();
             if (!res.ok) {
