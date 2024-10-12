@@ -1,25 +1,11 @@
-import { BarChart2, DollarSign, LogOutIcon, Menu, Settings, ShoppingBag, Users,LogOut,Send} from "lucide-react";
+import { BarChart2, Menu, Settings, ShoppingBag, Users,LogOut,Send} from "lucide-react";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import useLogout from "../../hooks/useLogout";
-const SIDEBAR_ITEMS = [
-	{
-		name: "Overview",
-		icon: BarChart2,
-		color: "#6366f1",
-		href: "/",
-	},
-	{ name: "Business", icon: ShoppingBag, color: "#F87171", href: "/business" },
-	{ name: "Users", icon: Users, color: "#EC4899", href: "/users" },
-	
-	{ name:"Notifications", icon: Send, color: "#F59E0B", href: "/notifications" },
-	{ name: "Settings", icon: Settings, color: "#6EE7B7", href: "/settings" },
-];
-/*{ name: "Sales", icon: DollarSign, color: "#10B981", href: "/sales" },
-	{ name: "Orders", icon: ShoppingCart, color: "#F59E0B", href: "/orders" },
-	{ name: "Analytics", icon: TrendingUp, color: "#3B82F6", href: "/analytics" },*/ 
-const Sidebar = ({path}) => {
+
+
+const Sidebar = ({path,elements}) => {
 	const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 	const Logout = useLogout();
 
@@ -41,7 +27,7 @@ const Sidebar = ({path}) => {
 				</motion.button>
 
 				<nav className='mt-8 flex-grow'>
-					{SIDEBAR_ITEMS.map((item) => (
+					{elements.map((item) => (
 						<Link key={item.href} to={path+item.href}>
 							<motion.div className='flex items-center p-4 text-sm font-medium rounded-lg hover:bg-gray-700 transition-colors mb-2'>
 								<item.icon size={20} style={{ color: item.color, minWidth: "20px" }} />

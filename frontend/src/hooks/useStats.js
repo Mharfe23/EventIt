@@ -77,6 +77,32 @@ export const useGetReperesentByBusiness = () => {
     return [loading, getUsers];
 }
 
+export const useGetReperesentByBusinessToday = () => {
+    const [loading, setLoading] = useState(false);
+
+    const getUsers = async (id) => {
+        setLoading(true);
+
+        try {
+            const res = await fetch(`/api/users/getBusRepresentByBusinessToday`);
+
+            const data = await res.json();
+            if (!res.ok) {
+                return [];
+            }
+            return data;
+
+        } catch (error) {
+            console.log(error);
+
+        } finally {
+            setLoading(false);
+        }
+    }
+    return [loading, getUsers];
+}
+
+
 //STATS
 export const getBusinessNumber = ()=>{
     const [loading, setLoading] = useState(false);
@@ -322,3 +348,33 @@ export const getnotifnumtoday =() => {
     }
     return [loading, getUsers];
 }
+
+
+
+export  const UseGetCategory = () => {
+        const [loading, setLoading] = useState(false);
+
+        const getCategories = async () => {
+            setLoading(true);
+
+            try {
+                const res = await fetch('/api/stats/Category');
+
+                const data = await res.json();
+                if (!res.ok) {
+                    return [];
+                }
+                return data;
+
+            } catch (error) {
+                console.log(error);
+
+            } finally {
+                setLoading(false);
+            }
+        }
+        return [loading, getCategories];
+    }
+
+
+

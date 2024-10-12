@@ -171,3 +171,27 @@ export const getNotifNumberToday = async (req, res) => {
         await connection.end();
     }
 };
+
+export const getCategory = async (req,res) =>{
+    let connection;
+    try {
+        connection = await connectToMySql();
+
+        const event_id = await geteventid_fromToken(req);
+
+        const [results] = await connection.execute(
+            `SELECT COUNT(*) as nbr , b_d.business_category
+             FROM business_details as b_d,businesses as bus
+             WHERE b_d.business_id = bus.business_id and event_id = ? 
+             Group by b_d.business_category
+             `,
+            [event_id]
+        );
+
+        res.status(200).json(results); // Send back today's notification count
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    } finally {
+        await connection.end();
+    }
+}

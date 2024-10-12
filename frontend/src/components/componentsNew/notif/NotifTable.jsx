@@ -29,7 +29,7 @@ const NotifTable = ({notiflist}) => {
 
 	return (
 		<motion.div
-			className='bg-gray-800 bg-opacity-50 backdrop-blur-md shadow-lg rounded-xl p-6 border border-gray-700 mb-8'
+			className='bg-gray-800 bg-opacity-50 backdrop-blur-md shadow-lg rounded-xl p-6 border border-gray-700 mb-8 overflow-y-auto h-[80vh]'
 			initial={{ opacity: 0, y: 20 }}
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ delay: 0.2 }}
@@ -89,7 +89,7 @@ const NotifTable = ({notiflist}) => {
 								</td>
 
 								<td className='px-8 py-4 whitespace-nowrap text-sm text-gray-300'>
-									{product.content}
+									{product.content.length >40  ?product.content.slice(0,40)+"...":product.content}
 								</td>
 
 								<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-300'>

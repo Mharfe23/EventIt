@@ -49,7 +49,31 @@ export const getBusinessRepresentativesByBusiness = async (req, res) => {
         
        
         const [results] = await connection.execute(
-            "SELECT user_id ,fullname, info FROM business_representatives WHERE business_id = ? AND event_id = ?",
+            "SELECT user_id ,fullname,email, info FROM business_representatives WHERE business_id = ? AND event_id = ?",
+            [business_id, event_id]
+        );
+        res.status(200).json(results);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }finally{
+        await connection.end();
+    }
+}
+
+export const getBusinessRepresentativesByBusinessToday = async (req, res) => {  
+
+    const connection = await connectToMySql();
+    try {
+        const event_id = await geteventid_fromToken(req);
+        const business_id = req.user.userId;
+        
+        if (!event_id || !business_id) {
+            return res.status(400).json({ error: "Invalid event ID or business ID" });
+        }
+        
+       
+        const [results] = await connection.execute(
+            "SELECT user_id ,fullname,email, info FROM business_representatives WHERE business_id = ? AND event_id = ? AND DATE(created_at) = CURDATE()",
             [business_id, event_id]
         );
         res.status(200).json(results);

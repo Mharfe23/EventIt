@@ -8,6 +8,7 @@ const router = express.Router();
 router.get('/getBusPerEvent',protectRoute(), getBusinessesPerEvent);
 router.get('/getBusRepresent',protectRoute(), getBusinessRepresentatives);
 router.get('/getBusRepresentByBusiness',protectRoute("bus_admin"),getBusinessRepresentativesByBusiness);
+router.get('/getBusRepresentByBusinessToday',protectRoute("bus_admin"),getBusinessRepresentativesByBusiness);
 
 
 export default router;

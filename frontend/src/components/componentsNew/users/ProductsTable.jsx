@@ -60,7 +60,7 @@ const BusinessTable = ({Businesslist,admin}) => {
 			  });
 			 
 			  if (!response.ok) {
-				throw new Error(data.message);
+				throw new Error(response.message);
 			  }
 
 			  toast.success("Modifié avec succés");
@@ -109,7 +109,7 @@ const BusinessTable = ({Businesslist,admin}) => {
 			transition={{ delay: 0.2 }}
 		>
 			<div className='flex justify-between items-center mb-6'>
-				<h2 className='text-xl font-semibold text-gray-100'>Business Details</h2>
+				<h2 className='text-xl font-semibold text-gray-100'>Details Entreprise</h2>
 				<div className='relative'>
 					<input
 						type='text'

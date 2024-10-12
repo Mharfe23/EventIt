@@ -1,17 +1,24 @@
 import { motion } from "framer-motion";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
-
-const categoryData = [
-	{ name: "AI in Health", value: 4500 },
-	{ name: "Consulting", value: 3200 },
-	{ name: "Cyber defense", value: 2800 },
-	{ name: "Infrastructure", value: 2100 },
-	{ name: "Digitalisation", value: 1900 },
-];
+import { UseGetCategory } from "../../../hooks/useStats";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const COLORS = ["#6366F1", "#8B5CF6", "#EC4899", "#10B981", "#F59E0B"];
 
 const CategoryDistributionChart = () => {
+	const [category,setcategory] = useState([]);
+	const [loading,getcategory] = UseGetCategory();
+
+	useEffect(()=>{
+
+		const setstats= async ()=>{
+			setcategory(await getcategory());
+		}
+		setstats();
+
+	},[])
+
 	return (
 		<motion.div
 			className='bg-gray-800 bg-opacity-50 backdrop-blur-md shadow-lg rounded-xl p-6 border border-gray-700 max-h-[26rem]'
@@ -24,16 +31,17 @@ const CategoryDistributionChart = () => {
 				<ResponsiveContainer width={"100%"} height={"100%"}>
 					<PieChart>
 						<Pie
-							data={categoryData}
+							data={category}
 							cx={"50%"}
 							cy={"50%"}
 							labelLine={false}
 							outerRadius={80}
 							fill='#8884d8'
-							dataKey='value'
-							label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+							dataKey='nbr'
+							nameKey='business_category'
+							label={({ business_category, percent }) => `${business_category} ${(percent * 100).toFixed(0)}%`}
 						>
-							{categoryData.map((entry, index) => (
+							{category.map((entry, index) => (
 								<Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
 							))}
 						</Pie>
