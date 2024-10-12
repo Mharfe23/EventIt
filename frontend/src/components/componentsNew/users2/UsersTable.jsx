@@ -6,7 +6,7 @@ import Modal from "../users/Modal";
 import { Edit, Trash2} from "lucide-react";
 
 
-const UsersTable = ({userData}) => {
+const UsersTable = ({userData,admin}) => {
 	const [searchTerm, setSearchTerm] = useState("");
 	const [filteredUsers, setFilteredUsers] = useState(userData);
 	const [selectedUser, setselectedUser] = useState(null);
@@ -134,9 +134,9 @@ const UsersTable = ({userData}) => {
 								Info
 							</th>
 							
-							<th className='px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider'>
+							{admin?<th className='px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider'>
 								Actions
-							</th>
+							</th>:null}
 						</tr>
 					</thead>
 
@@ -178,14 +178,14 @@ const UsersTable = ({userData}) => {
 
 								
 
-								<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-300'>
+								{admin?<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-300'>
 									<button className='text-indigo-400 hover:text-indigo-300 mr-2' onClick={() => handleEditClick(user)}>
 										<Edit size={18} />
 									</button>
 									<button className='text-red-400 hover:text-red-300' onClick={()=> handleDeleteClick(user)}>
 										<Trash2 size={18} />
 									</button>
-								</td>
+								</td>:null}
 							</motion.tr>
 						))}
 					</tbody>

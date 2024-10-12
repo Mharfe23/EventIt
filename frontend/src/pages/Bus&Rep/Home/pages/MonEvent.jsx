@@ -51,7 +51,7 @@ const MonEvent = () => {
       </motion.div>
 
       <div >
-      <BusinessTable Businesslist={businessList} admin={false}/>
+        <BusinessTable Businesslist={businessList} admin={false}/>
 
       </div>
       </main>

@@ -9,6 +9,7 @@ import MonEvent from './pages/MonEvent';
 import SettingsPage from '../../Home/page/SettingsPage';
 import { useAuthContext } from '../../../Context/AuthContext';
 import { Calendar } from 'lucide-react';
+import UsersPageInv from './pages/UsersPageInv';
 const HomeInv = () => {
   const {authUser} = useAuthContext();
 
@@ -25,7 +26,7 @@ const HomeInv = () => {
       {name: "Participant",
         icon: UsersRound,
         color: "#6366f1",
-        href: "/"},
+        href: "/Participant"},
       { name: "Event", icon: Calendar, color: "#EC4899", href: "/Event" },
       
       { name: "Settings", icon: Settings, color: "#6EE7B7", href: "/settings" },
@@ -65,6 +66,7 @@ const HomeInv = () => {
          <Route path='/Entreprise' element={<MonEntreprise/>} />
          <Route path='/Event' element={<MonEvent/>}/>
          <Route path='/settings' element={<SettingsPage/>}/>
+         <Route path='/Participant' element={<UsersPageInv/>}/>
         
 
         </Routes>

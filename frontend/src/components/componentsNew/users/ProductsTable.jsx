@@ -13,7 +13,7 @@ const BusinessTable = ({Businesslist,admin}) => {
 	const [selectedProduct, setSelectedProduct] = useState(null);
 	const [showEditModal, setshowEditModal] = useState(false);
 	const [showDeleteModal,setshowDeleteModal] = useState(false);
-
+	const [expandedDescriptions, setExpandedDescriptions] = useState({}); // Track which descriptions are expanded
 	useEffect(() =>{
 		setFilteredProducts(Businesslist);
 	},[Businesslist]);
@@ -99,6 +99,12 @@ const BusinessTable = ({Businesslist,admin}) => {
 		}
 			
 	}
+	const toggleDescription = (business_id) => {
+		setExpandedDescriptions((prevState) => ({
+		  ...prevState,
+		  [business_id]: !prevState[business_id], // Toggle the expanded state
+		}));
+	  };
 
 
 	return (
@@ -180,9 +186,15 @@ const BusinessTable = ({Businesslist,admin}) => {
 									{product.website}
 								</td>
 
-								<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-300'>
-									{product.description.slice(0,40)+'...'}
-								</td>
+								<td
+									className="px-6 py-4 whitespace-nowrap text-sm text-gray-300 cursor-pointer"
+									onClick={() => toggleDescription(product.business_id)}
+									>
+									{/* Check if description is expanded */}
+									{expandedDescriptions[product.business_id]
+										? product.description // Show full description
+										: product.description.slice(0, 40) + "..."} {/* Show shortened description */}
+									</td>
 
 								<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-300'>
 									{product.business_category}

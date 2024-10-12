@@ -54,7 +54,7 @@ const UsersPage = () => {
 					
 				</motion.div>
 
-				<UsersTable userData={users}/>
+				<UsersTable userData={users} admin={true}/>
 
 				{/* USER CHARTS */}
 				<div className='grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8'>
