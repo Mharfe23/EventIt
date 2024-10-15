@@ -17,7 +17,6 @@ import { useMatchup } from '../../hooks/Bus&Rep/Usematchup'; // Adjust the path 
       const data = await matchup({ user_id: authUser.user_id, business_id: authUser.business_id, info: authUser.info }); // Replace with actual values
       if (data) {
         setParticipants(data.matches); // Assuming the API returns a list of participants
-        console.log(data.matches)
       }
     };
 
@@ -28,7 +27,7 @@ import { useMatchup } from '../../hooks/Bus&Rep/Usematchup'; // Adjust the path 
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
       >
-        <button className='btn btn-primary block mx-auto' onClick={handleMatchup} disabled={loading}>
+        <button className={`btn btn-primary block mx-auto ${loading? 'btn-disabled':''}`} onClick={handleMatchup} >
           {loading ? 'Loading...' : 'AFFICHER MES MATCHES'}
         </button>
         <ul className='mt-4 '>
@@ -55,7 +54,7 @@ import { useMatchup } from '../../hooks/Bus&Rep/Usematchup'; // Adjust the path 
                     return <span className='bg-slate-100 p-1 text-center text-xs text-black rounded-md'>{categ}</span>
                   })}
                 </p>
-                <p>{Math.floor(participant.final_score)}</p>
+                <p>{Math.floor(participant.score*100)}</p>
               
 
               </div>
