@@ -12,6 +12,7 @@ const UsersTable = ({userData,admin}) => {
 	const [selectedUser, setselectedUser] = useState(null);
 	const [showEditModal, setshowEditModal] = useState(false);
 	const [showDeleteModal,setshowDeleteModal] = useState(false);
+	const [expandedDescriptions, setExpandedDescriptions] = useState({}); // Track which descriptions are expanded
 
 	useEffect(()=>{
 		setFilteredUsers(userData);
@@ -95,6 +96,12 @@ const UsersTable = ({userData,admin}) => {
 			}
 				
 		}
+		const toggleDescription = (business_id) => {
+			setExpandedDescriptions((prevState) => ({
+			  ...prevState,
+			  [business_id]: !prevState[business_id], // Toggle the expanded state
+			}));
+		  };
 
 	return (
 		<motion.div
@@ -172,7 +179,14 @@ const UsersTable = ({userData,admin}) => {
 
 								
 								<td className='px-6 py-4 whitespace-nowrap'>
-									<div className='text-sm text-gray-300'>{user.info.slice(0,20)+"..."}</div>
+									<div className='text-sm text-gray-300 cursor-pointer '
+									onClick={() => toggleDescription(user.user_id)}
+									 >
+										{expandedDescriptions[user.user_id]
+										? user.info
+										:user.info.slice(0,20)+"..."}
+										
+										</div>
 								</td>
 								
 

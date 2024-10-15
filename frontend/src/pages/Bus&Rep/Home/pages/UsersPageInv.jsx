@@ -4,12 +4,11 @@ import Header from "../../../../components/componentsNew/Header";
 
 import StatCard from "../../../../components/componentsNew/StatCard";
 import UsersTable from "../../../../components/componentsNew/users2/UsersTable";
-import UserGrowthChart from "../../../../components/componentsNew/users2/UserGrowthChart";
-import UserActivityHeatmap from "../../../../components/componentsNew/users2/UserActivityHeatmap";
-import UserDemographicsChart from "../../../../components/componentsNew/users2/UserDemographicsChart";
+
 import { useState } from "react";
 import { useEffect } from "react";
 import {GetReperesentNumber, GetReperesentToday,useGetReperesent} from "../../../../hooks/useStats";
+import Matchup from "../../../../components/componentsNew/Matchup";
 
 
 const UsersPageInv = () => {
@@ -51,8 +50,9 @@ const UsersPageInv = () => {
 				</motion.div>
 
 				<UsersTable userData={users} admin={false}/>
+				<Matchup/>
 
-				{/* USER CHARTS */}
+				
 				
 			</main>
 		</div>
