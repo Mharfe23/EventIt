@@ -42,3 +42,19 @@ def match_participants(participants, target):
 
     matches.sort(key=lambda x: x["score"], reverse=True)  # Sort matches by final score
     return matches
+
+
+def create_prompt(person1_info, person2_info,person1_name,person2_name, event_name,event_description):
+ 
+  prompt = f"""
+ 
+j'ai assistez à un événement technologique intitulé {event_name}, axé sur {event_description}. Il y a une personne que j'aimerais rencontrer :
+
+- {person1_name} (Moi) : {person1_info}  
+- {person2_name} (L'autre personne) : {person2_info}
+
+Votre mission : Comment puis-je profiter de cet événement pour établir une connexion significative avec cette personne ? Donnez-moi des idées,des sujets concis pour réseauter efficacement avec lui. Tenez compte de nos intérêts communs et limitez tout le paragraph à 80_90 mots , et sous forme de liste."
+
+  """
+  return prompt
+

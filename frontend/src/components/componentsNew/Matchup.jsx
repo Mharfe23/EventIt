@@ -1,16 +1,49 @@
 import React from 'react'
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { useEffect } from "react";
 import { useAuthContext } from '../../Context/AuthContext';
- 
-import { useMatchup } from '../../hooks/Bus&Rep/Usematchup'; // Adjust the path as necessary
+import { useMatchup,useMatchupAdvice } from '../../hooks/Bus&Rep/Usematchup'; // Adjust the path as necessary
+import toast from 'react-hot-toast';
+import { MdKeyboardDoubleArrowDown } from "react-icons/md";
 
   const Matchup = () => {
     const [loading, matchup] = useMatchup();
+    const [loadingAdvice, matchupAdvice] = useMatchupAdvice();
     const [participants, setParticipants] = useState([]);
     const {authUser} = useAuthContext();
 
+    const [expandedParticipantId, setExpandedParticipantId] = useState(null);
+    const [additionalContent, setAdditionalContent] = useState('');
+
+    const handleArrowClick = async (participant) => {
+      // Check if the same participant is already expanded
+      if (expandedParticipantId === participant.user_id) {
+        setExpandedParticipantId(null); // Collapse if already expanded
+        setAdditionalContent(''); // Clear content if collapsing
+        return;
+      }
+  
+      try {
+        // Fetch additional content from API
+        const response = await matchupAdvice({
+          match_id: participant.user_id,
+          user_fullname: participant.fullname,
+          user_info: authUser.info,
+          match_name: participant.fullname
+        });
+  
+        const content = await response; // Assuming the hook returns the parsed response directly
+        const formatedContent = content.advice
+            .split('\n')
+            .map((line) => <p key={line} className='block'>{line}</p>);
+
+        setAdditionalContent(formatedContent); // Assuming the content has an `advice` field
+        setExpandedParticipantId(participant.user_id); // Expand the clicked participant
+      } catch (error) {
+        toast.error('Error fetching advice. Please try again later.'); // Fixing toast error
+        setAdditionalContent('Could not fetch advice. Please try again later.');
+      }
+    };
 
 
     const handleMatchup = async () => {
@@ -38,7 +71,7 @@ import { useMatchup } from '../../hooks/Bus&Rep/Usematchup'; // Adjust the path 
         </li>
 
           {participants.map((participant, index) => (
-            <li key={participant.user_id} className='mb-4'>
+            <li key={participant.user_id} className='mb-4 relative'>
               <div className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-100 flex gap-2 items-center justify-between border-[1px] mb-2 shadow-sm shadow-slate-50 rounded-lg bg-gray-900 '>
                 <div className='flex items-center gap-3'>
                 <img
@@ -50,7 +83,7 @@ import { useMatchup } from '../../hooks/Bus&Rep/Usematchup'; // Adjust the path 
                 </div>
                 
                 <p className='grid grid-cols-3 gap-2'>
-                    {participant.common_keywords.map((categ)=>{
+                    {participant?.common_keywords.map((categ)=>{
                     return <span className='bg-slate-100 p-1 text-center text-xs text-black rounded-md'>{categ}</span>
                   })}
                 </p>
@@ -58,6 +91,21 @@ import { useMatchup } from '../../hooks/Bus&Rep/Usematchup'; // Adjust the path 
               
 
               </div>
+              <div className='absolute -bottom-1 left-1/2 cursor-pointer p-0' onClick={() => handleArrowClick(participant)}>
+                            <MdKeyboardDoubleArrowDown size={28}  />
+              </div>
+
+                        {/* Conditionally render the additional content */}
+                        {expandedParticipantId === participant.user_id && (
+                            <div className='mt-4 text-gray-200'>
+                              {loadingAdvice ? (
+                                <p>Loading advice...</p>  
+                              ) : (
+                                <p>{additionalContent}</p>  
+                              )}
+                            </div>
+                          )}
+
             
             </li> // Adjust based on the actual structure of participant
           ))}
