@@ -30,7 +30,7 @@ const UsersPageInv = () => {
 
 	return (
 		<div className='flex-1 overflow-auto relative z-10'>
-			<Header title='Users' />
+			<Header title='Représentants' />
 
 			<main className='max-w-7xl mx-auto py-6 px-4 lg:px-8'>
 				{/* STATS */}
@@ -41,7 +41,7 @@ const UsersPageInv = () => {
 					transition={{ duration: 1 }}
 				>
 					<StatCard
-						name='Total Users'
+						name='Total Représentants'
 						icon={UsersIcon}
 						value={usernumber}
 						color='#6366F1'

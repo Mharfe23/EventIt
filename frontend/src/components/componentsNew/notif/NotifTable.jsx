@@ -39,7 +39,7 @@ const NotifTable = ({notiflist}) => {
 				<div className='relative'>
 					<input
 						type='text'
-						placeholder='Search business...'
+						placeholder='Chercher une Notification...'
 						className='bg-gray-700 text-white placeholder-gray-400 rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500'
 						onChange={handleSearch}
 						value={searchTerm}
@@ -53,13 +53,13 @@ const NotifTable = ({notiflist}) => {
 					<thead>
 						<tr>
 							<th className='px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider'>
-								Title
+								Titre
 							</th>
 							<th className='px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider'>
-								Content
+								Message
 							</th>
 							<th className='px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider'>
-								target
+								Cible
 							</th>
 							<th className='px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider'>
 								Date

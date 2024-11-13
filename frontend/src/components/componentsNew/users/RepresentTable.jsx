@@ -191,7 +191,7 @@ const RepresentTable = ({Representlist}) => {
 			{/* Modal for editing product */}
 			<Modal show={showEditModal} onClose={() => setshowEditModal(false)} onSubmit={handleSubmit} >
 				
-				<h3 className="text-xl font-semibold mb-4 text-gray-600">Edit Representant</h3>
+				<h3 className="text-xl font-semibold mb-4 text-gray-600">Ajouter Representant</h3>
 				
 				<form  className="grid lg:grid-cols-3  gap-6">
 						
@@ -243,7 +243,7 @@ const RepresentTable = ({Representlist}) => {
 				</form>
 			</Modal>
 			<Modal show ={showDeleteModal} onClose={()=> setshowDeleteModal(false)} onSubmit={handleDelete}>
-				<p className="text-xl text-black">Est-t-vous sure de vouloire Supprimer <span className="text-red-500 font-semibold"> Definitivement </span> ce compte?</p>
+				<p className="text-xl text-black">Est-t-vous sure de vouloir Supprimer <span className="text-red-500 font-semibold"> Definitivement </span> ce compte?</p>
 			</Modal>
 		</motion.div>
 	);

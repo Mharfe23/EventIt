@@ -13,16 +13,16 @@ import NotificationPage from './page/NotificationPage';
 const Home = () => {
   const SIDEBAR_ITEMS = [
     {
-      name: "Overview",
+      name: "Apercu",
       icon: BarChart2,
       color: "#6366f1",
       href: "/",
     },
-    { name: "Business", icon: ShoppingBag, color: "#F87171", href: "/business" },
-    { name: "Users", icon: Users, color: "#EC4899", href: "/users" },
+    { name: "Entreprise", icon: ShoppingBag, color: "#F87171", href: "/business" },
+    { name: "Représentant", icon: Users, color: "#EC4899", href: "/users" },
     
     { name:"Notifications", icon: Send, color: "#F59E0B", href: "/notifications" },
-    { name: "Settings", icon: Settings, color: "#6EE7B7", href: "/settings" },
+    { name: "Paramètre", icon: Settings, color: "#6EE7B7", href: "/settings" },
   ];
 
 

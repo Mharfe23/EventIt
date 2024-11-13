@@ -44,8 +44,8 @@ const NotificationPage = () => {
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 1 }}
 				>
-					<StatCard name='Total Notification' icon={Package} value={notifnum.total_notif} color='#6366F1' />
-					<StatCard name='New Notification' icon={TrendingUp} value={notiftoday.today_notif} color='#10B981' />
+					<StatCard name='Total Des Notification' icon={Package} value={notifnum.total_notif} color='#6366F1' />
+					<StatCard name='Nouveau Notification' icon={TrendingUp} value={notiftoday.today_notif} color='#10B981' />
 				</motion.div>
                 
                 <NotificationForm/>

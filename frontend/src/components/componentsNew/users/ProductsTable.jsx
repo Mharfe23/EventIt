@@ -119,7 +119,7 @@ const BusinessTable = ({Businesslist,admin}) => {
 				<div className='relative'>
 					<input
 						type='text'
-						placeholder='Search business...'
+						placeholder='Chercher une entreprise...'
 						className='bg-gray-700 text-white placeholder-gray-400 rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500'
 						onChange={handleSearch}
 						value={searchTerm}
@@ -216,7 +216,7 @@ const BusinessTable = ({Businesslist,admin}) => {
 			{/* Modal for editing product */}
 			<Modal show={showEditModal} onClose={() => setshowEditModal(false)} onSubmit={handleSubmit} >
 				
-				<h3 className="text-xl font-semibold mb-4 text-gray-600">Edit Business</h3>
+				<h3 className="text-xl font-semibold mb-4 text-gray-600">Modifier cette entreprise</h3>
 				
 				<form  className="grid md:grid-cols-3  gap-6">
 					
@@ -278,7 +278,7 @@ const BusinessTable = ({Businesslist,admin}) => {
 				</form>
 			</Modal>
 			<Modal show ={showDeleteModal} onClose={()=> setshowDeleteModal(false)} onSubmit={handleDelete}>
-				<p className="text-xl text-black">Est-t-vous sure de vouloire Supprimer <span className="text-red-500 font-semibold"> Definitivement </span> ce compte?</p>
+				<p className="text-xl text-black">Est-t-vous sur de vouloir Supprimer <span className="text-red-500 font-semibold"> Definitivement </span> ce compte?</p>
 			</Modal>
 		</motion.div>
 	);

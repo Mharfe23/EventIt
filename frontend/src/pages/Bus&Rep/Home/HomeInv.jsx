@@ -18,32 +18,32 @@ const HomeInv = () => {
   if (Repr){
     SIDEBAR_ITEMS = [
       {
-        name: "Overview",
+        name: "Apercu",
         icon: BarChart2,
         color: "#6366f1",
         href: "/",
       },
-      {name: "Participant",
+      {name: "Représentant",
         icon: UsersRound,
         color: "#6366f1",
         href: "/Participant"},
-      { name: "Event", icon: Calendar, color: "#EC4899", href: "/Event" },
+      { name: "Evenement", icon: Calendar, color: "#EC4899", href: "/Event" },
       
-      { name: "Settings", icon: Settings, color: "#6EE7B7", href: "/settings" },
+      { name: "Parametre", icon: Settings, color: "#6EE7B7", href: "/settings" },
     ];
 
   }else{
     SIDEBAR_ITEMS = [
       {
-        name: "Overview",
+        name: "Apercu",
         icon: BarChart2,
         color: "#6366f1",
         href: "/",
       },
       { name: "Entreprise", icon: ShoppingBag, color: "#F87171", href: "/Entreprise" },
-      { name: "Event", icon: Users, color: "#EC4899", href: "/Event" },
+      { name: "Evenement", icon: Users, color: "#EC4899", href: "/Event" },
       
-      { name: "Settings", icon: Settings, color: "#6EE7B7", href: "/settings" },
+      { name: "Parametre", icon: Settings, color: "#6EE7B7", href: "/settings" },
     ];
   }
 

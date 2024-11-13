@@ -36,10 +36,10 @@ const NotificationForm = () => {
 
   return (
     <div className='bg-gray-800 bg-opacity-50 backdrop-blur-md shadow-lg rounded-xl p-6 border border-gray-700 mb-8'>
-      <h2 className='py-3 text-lg'>Send Notification</h2>
+      <h2 className='py-3 text-lg'>Envoyer une Notification</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="title">Title:</label>
+          <label htmlFor="title">Titre:</label>
           <input
             type="text"
             id="title"
@@ -66,7 +66,7 @@ const NotificationForm = () => {
           />
         </div>
         <div>
-          <label htmlFor="target" >Target:</label>
+          <label htmlFor="target" >Cible:</label>
           <select
             id="target"
             name="target"
@@ -74,14 +74,14 @@ const NotificationForm = () => {
             value={target}
             onChange={handleChange}>
 
-            <option value="representative" >Representative</option>
-            <option value="admin" >Admin</option>
+            <option value="representative" >Représentant</option>
+            <option value="admin" >Entreprise</option>
             {/* Add more options as needed */}
           </select>
         </div>
         <br />
         <button type="submit" disabled={loadingSend} className=' btn'>
-          {loadingSend ? 'Sending...' : 'Send Notification'}
+          {loadingSend ? 'Sending...' : 'Envoyer Notification'}
         </button>
       </form>
     </div>
