@@ -1,8 +1,21 @@
-# React + Vite
+# B2B Platform - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
+This is the **frontend** of the B2B platform for technology events, designed to facilitate event management and enhance networking between participants. The frontend is built using **React** and interacts with the backend API for data retrieval and matchmaking features.
 
-Currently, two official plugins are available:
+## Technologies Used
+- **React** - Frontend framework for building the user interface.
+- **Vite** - Development environment for faster builds.
+- **Tailwind CSS** - For styling and responsive design.
+- **React Router** - For client-side navigation.
+- **Context API** For state management.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Installation & Setup
+
+### Prerequisites
+Make sure you have **Node.js** and **npm** (or **yarn**) installed.
+
+1. **Install dependencies & Start the devlopment server**:
+  ```bash
+npm install
+npm run dev
