@@ -92,7 +92,7 @@ import { MdKeyboardDoubleArrowDown } from "react-icons/md";
 
               </div>
               <div className='absolute -bottom-1 left-1/2 cursor-pointer p-0' onClick={() => handleArrowClick(participant)}>
-                            <MdKeyboardDoubleArrowDown size={28}  />
+                            <MdKeyboardDoubleArrowDown size={28} />
               </div>
 
                         {/* Conditionally render the additional content */}

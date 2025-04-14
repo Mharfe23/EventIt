@@ -44,3 +44,26 @@ const connectToMySql = async () => {
 }
 
 export default connectToMySql;*/
+
+/*Singleton implementation
+
+
+let connection;
+
+const getMySqlConnection = async () => {
+    if (!connection) {
+        connection = await mysql2.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: process.env.MYSQL_PASSWORD,
+            port: 3306,
+            database: 'event_plateform_db'
+        });
+        console.log('MySQL connection established.');
+    }
+
+    return connection;
+};
+
+
+*/
