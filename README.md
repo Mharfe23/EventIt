@@ -1,4 +1,4 @@
-# B2B Platform for Technology Events - Internship Report
+# B2B Platform for Technology Events
 
 ## Overview
 This document presents a comprehensive summary of my first-year internship , where I developed a **B2B platform for technology events**. My primary focus was on designing and implementing key functionalities to streamline event management and enhance networking among participants.
