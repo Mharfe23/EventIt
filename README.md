@@ -32,6 +32,5 @@ My contributions spanned the entire software development lifecycle:
 This internship provided valuable hands-on experience in **full-stack development**, **AI-driven matchmaking**, and **event management solutions**. The project successfully revolutionized how companies and representatives connect during technology events, making networking more efficient and data-driven.
 
 ---
-
-### Repository Information
-For further technical details and implementation insights, please refer to the project source code and documentation available in this repository.
+## Project Demo
+To explore the project in action, visit the EventIt demo - [EvenIt Demo Video](https://drive.google.com/file/d/1T_zguPbQmBWmJbPWdPR9n7nZEIrNGfWA/view?usp=sharing).
