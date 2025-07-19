@@ -1,7 +1,13 @@
 # B2B Platform for Technology Events - Internship Report
 
 ## Overview
-This document presents a comprehensive summary of my first-year internship at **Algo Consulting**, where I actively contributed to the development of a **B2B platform for technology events**. My primary focus was on designing and implementing key functionalities to streamline event management and enhance networking among participants.
+This document presents a comprehensive summary of my first-year internship , where I developed a **B2B platform for technology events**. My primary focus was on designing and implementing key functionalities to streamline event management and enhance networking among participants.
+
+## High Level Software Architecture
+
+|![Architecture](./systemArch.png)|
+|:------------------------------------:|
+
 
 ## Key Features Developed
 - **Organizer Account Management**: Designed an account system granting organizers administrative control over other accounts.
